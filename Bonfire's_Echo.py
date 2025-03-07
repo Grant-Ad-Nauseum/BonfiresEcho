@@ -1,4 +1,5 @@
 import random
+import sys
 import time
 import json
 import os
@@ -363,15 +364,15 @@ rooms = {
         'chests': []
     },
     'dark_abyss': {
-    'description': 'A pit of black despair, alive with skittering dread.',
-    'exits': {'east': 'grand_hall', 'north': 'hidden_vault', 'south': 'relic_vault'},
-    'objects': ['golden_key', 'shadow_blade'],
-    'enemies': ['shadow_beast'],
-    'traps': ['false_floor'],
-    'bonfire': False,
-    'lore': 'The abyss devoured the empire’s sins.',
-    'chests': [],
-    'puzzle': {'riddle': 'The more of me you take, the more you leave behind. What am I?', 'answer': 'footsteps', 'reward': 'void_guard'}
+        'description': 'A pit of black despair, alive with skittering dread.',
+        'exits': {'east': 'grand_hall', 'north': 'hidden_vault', 'south': 'relic_vault'},
+        'objects': ['golden_key', 'shadow_blade'],
+        'enemies': ['shadow_beast'],
+        'traps': ['false_floor'],
+        'bonfire': False,
+        'lore': 'The abyss devoured the empire’s sins.',
+        'chests': [],
+        'puzzle': {'riddle': 'The more of me you take, the more you leave behind. What am I?', 'answer': 'footsteps', 'reward': 'void_guard'}
     },
     'hidden_vault': {
         'description': 'A hollow vault, its treasure long plundered.',
@@ -394,15 +395,15 @@ rooms = {
         'chests': []
     },
     'oracle_chamber': {
-    'description': 'The Oracle looms, a statue of cryptic silence.',
-    'exits': {'south': 'library', 'west': 'tower_of_the_mage'},
-    'objects': ['rune_key', 'ruby_ring'],
-    'enemies': [],
-    'traps': [],
-    'bonfire': False,
-    'lore': 'The Oracle saw the end and said nothing.',
-    'chests': [],
-    'puzzle': {'riddle': 'I speak without a mouth and hear without ears. What am I?', 'answer': 'echo', 'reward': 'shadow_blade'}
+        'description': 'The Oracle looms, a statue of cryptic silence.',
+        'exits': {'south': 'library', 'west': 'tower_of_the_mage'},
+        'objects': ['rune_key', 'ruby_ring'],
+        'enemies': [],
+        'traps': [],
+        'bonfire': False,
+        'lore': 'The Oracle saw the end and said nothing.',
+        'chests': [],
+        'puzzle': {'riddle': 'I speak without a mouth and hear without ears. What am I?', 'answer': 'echo', 'reward': 'shadow_blade'}
     },
     'throne_antechamber': {
         'description': 'A cracked marble hall, prelude to royal ruin.',
@@ -528,15 +529,15 @@ rooms = {
         'chests': []
     },
     'frozen_lair': {
-    'description': 'A lair of frost and fury, dragon’s breath frozen in time.',
-    'exits': {'south': 'ice_passage', 'east': 'lava_chamber', 'north': 'frosted_depths'},
-    'objects': ['dragon_tooth'],
-    'enemies': ['ice_wyrm'],
-    'traps': [],
-    'bonfire': False,
-    'lore': 'A wyrm’s tomb, icy and unyielding.',
-    'chests': ['dragon_hoard'],
-    'puzzle': {'riddle': 'I can fly without wings, cry without eyes, and be caught but never held. What am I?', 'answer': 'snowflake', 'reward': 'frost_glaive'}
+        'description': 'A lair of frost and fury, dragon’s breath frozen in time.',
+        'exits': {'south': 'ice_passage', 'east': 'lava_chamber', 'north': 'frosted_depths'},
+        'objects': ['dragon_tooth'],
+        'enemies': ['ice_wyrm'],
+        'traps': [],
+        'bonfire': False,
+        'lore': 'A wyrm’s tomb, icy and unyielding.',
+        'chests': ['dragon_hoard'],
+        'puzzle': {'riddle': 'I can fly without wings, cry without eyes, and be caught but never held. What am I?', 'answer': 'snowflake', 'reward': 'frost_glaive'}
     },
     'lava_chamber': {
         'description': 'A hellscape of molten rivers, heat choking the air.',
@@ -549,15 +550,15 @@ rooms = {
         'chests': []
     },
     'arcane_sanctum': {
-    'description': 'A sanctum of humming runes, magic thick as blood.',
-    'exits': {'west': 'library', 'east': 'mana_well'},
-    'objects': ['rune_shroud', 'spell_scroll_soul_drain'],
-    'enemies': ['necromancer'],
-    'traps': ['magical_runes'],
-    'bonfire': False,
-    'lore': 'Spells were born in this crucible.',
-    'chests': [],
-    'puzzle': {'riddle': 'I am always running but never move. What am I?', 'answer': 'shadow', 'reward': 'crystal_staff'}
+        'description': 'A sanctum of humming runes, magic thick as blood.',
+        'exits': {'west': 'library', 'east': 'mana_well'},
+        'objects': ['rune_shroud', 'spell_scroll_soul_drain'],
+        'enemies': ['necromancer'],
+        'traps': ['magical_runes'],
+        'bonfire': False,
+        'lore': 'Spells were born in this crucible.',
+        'chests': [],
+        'puzzle': {'riddle': 'I am always running but never move. What am I?', 'answer': 'shadow', 'reward': 'crystal_staff'}
     },
     'mana_well': {
         'description': 'A well of liquid mana, glowing with forbidden light.',
@@ -1039,7 +1040,7 @@ def open_chest(chest_name: str, player: Dict) -> None:
     for item in chest['contents']:
         player['inventory'].append(item)
         print(f"You claim: {item.capitalize()}")
-    chest['contents'] = []  
+    chest['contents'] = []
 
 def craft_item(player: Dict, item: str) -> None:
     """Craft items at a crafting station."""
@@ -1061,6 +1062,33 @@ def craft_item(player: Dict, item: str) -> None:
     player['inventory'].append(item)
     print(f"You craft a {item}! {recipe['desc']}")
 
+def handle_victory(player: Dict) -> str:
+    """Handle victory condition with options to save, quit, or restart."""
+    print(f"\n{player['name']} grasps the Relic of Ages, its power a storm in your veins.")
+    print("The Underground Empire shudders, light piercing the dark above. Victory is yours—for now.")
+    player['achievements'].append('Relic Bearer')
+    
+    while True:
+        choice = input("What now, Relic Bearer? (save/quit/restart): ").lower().strip()
+        if choice == 'save':
+            save_game(player)
+            print("Your triumph is recorded. What next?")
+        elif choice == 'quit':
+            save_game(player)
+            return 'quit'
+        elif choice == 'restart':
+            return 'restart'
+        else:
+            print("The relic hums, awaiting a clear command.")
+
+def get_save_path() -> str:
+    """Get the consistent save file path, handling PyInstaller bundles."""
+    if getattr(sys, 'frozen', False):  # Running as PyInstaller executable
+        base_path = os.path.dirname(sys.executable)
+    else:  # Running as script
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, SAVE_FILE)
+
 def save_game(player: Dict) -> None:
     """Save the game state to a file, converting sets to lists."""
     player_copy = player.copy()
@@ -1072,57 +1100,75 @@ def save_game(player: Dict) -> None:
         'rooms': {k: {'enemies': v['enemies'], 'objects': v['objects'], 'chests': v['chests']} for k, v in rooms.items()},
         'active_effects': active_effects
     }
-    with open(SAVE_FILE, 'w') as f:
-        json.dump(game_state, f)
-    print("Your journey is etched into the annals.")
+    save_path = get_save_path()
+    print(f"Attempting to save to: {save_path}")  # Debug output
+    try:
+        with open(save_path, 'w') as f:
+            json.dump(game_state, f, indent=2)
+        print("Your journey is etched into the annals.")
+    except (IOError, PermissionError) as e:
+        print(f"Failed to save game: {e}. Your progress may be lost.")
 
 def load_game() -> Tuple[Optional[Dict], str, str, Dict]:
     """Load the game state from a file, converting lists back to sets."""
-    if not os.path.exists(SAVE_FILE):
+    save_path = get_save_path()
+    print(f"Checking for save file at: {save_path}")  # Debug output
+    if not os.path.exists(save_path):
         print("No tale to reclaim from the void.")
         return None, 'ruined_atrium', 'ruined_atrium', {}
     try:
-        with open(SAVE_FILE, 'r') as f:
+        with open(save_path, 'r') as f:
             game_state = json.load(f)
+        if not all(key in game_state for key in ['player', 'current_room', 'last_bonfire', 'rooms', 'active_effects']):
+            raise KeyError("Save file missing required data.")
         game_state['player']['explored'] = set(game_state['player']['explored'])
         for room, data in game_state['rooms'].items():
-            rooms[room]['enemies'] = data['enemies']
-            rooms[room]['objects'] = data['objects']
-            rooms[room]['chests'] = data['chests']
+            if room not in rooms:
+                print(f"Warning: Unknown room '{room}' in save file, skipping.")
+                continue
+            rooms[room]['enemies'] = data.get('enemies', rooms[room]['enemies'])
+            rooms[room]['objects'] = data.get('objects', rooms[room]['objects'])
+            rooms[room]['chests'] = data.get('chests', rooms[room]['chests'])
         print("You rise from the ashes of a past life.")
         return game_state['player'], game_state['current_room'], game_state['last_bonfire'], game_state['active_effects']
-    except (json.JSONDecodeError, KeyError) as e:
+    except (json.JSONDecodeError, KeyError, IOError) as e:
         print(f"Failed to load save file: {e}. Starting anew.")
         return None, 'ruined_atrium', 'ruined_atrium', {}
 
-# --- Game Setup ---
-print(f"Bonfire's Echo v{VERSION}")
-print_lore()
-if os.path.exists(SAVE_FILE):
-    choice = input("Load saved game? (yes/no): ").lower()
-    if choice.startswith('y'):
-        loaded_player, loaded_room, loaded_bonfire, loaded_effects = load_game()
-        if loaded_player:
-            player = loaded_player
-            current_room = loaded_room
-            last_bonfire = loaded_bonfire
-            active_effects = loaded_effects
-    else:
-        player = setup_player()
-else:
+def game_setup() -> Tuple[Dict, str, str, Dict]:
+    """Handle initial game setup or restart with load option."""
+    print(f"Bonfire's Echo v{VERSION}")
+    print_lore()
+    save_path = get_save_path()
+    if os.path.exists(save_path):
+        choice = input("Load saved game? (yes/no): ").lower().strip()
+        if choice.startswith('y'):
+            loaded_player, loaded_room, loaded_bonfire, loaded_effects = load_game()
+            if loaded_player:
+                return loaded_player, loaded_room, loaded_bonfire, loaded_effects
+    print("No save found or load declined. A new tale begins.")
     player = setup_player()
+    return player, 'ruined_atrium', 'ruined_atrium', {}
+
+# --- Game Setup and Loop ---
+player, current_room, last_bonfire, active_effects = game_setup()
 print_ascii_art()
 
-# --- Game Loop ---
 while True:
     room = rooms[current_room]
     if not enhanced_enter_room(room, player):
         continue
     if current_room == 'relic_vault' and 'relic_of_ages' in player['inventory']:
-        print(f"\n{player['name']} grasps the Relic of Ages, its power a storm in your veins.")
-        print("The Underground Empire shudders, light piercing the dark above. Victory is yours—for now.")
-        player['achievements'].append('Relic Bearer')
-        break
+        result = handle_victory(player)
+        if result == 'quit':
+            break
+        elif result == 'restart':
+            player, current_room, last_bonfire, active_effects = game_setup()
+            for room_name, enemy_list in master_enemies.items():
+                rooms[room_name]['enemies'] = enemy_list.copy()
+            print("A new journey begins in the shadowed depths.")
+            print_ascii_art()
+            continue
     command = input("> ").lower().split()
     if not command:
         print("The silence deafens.")
