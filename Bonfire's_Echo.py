@@ -5,9 +5,9 @@ import os
 from typing import Dict, List, Tuple, Optional
 
 # --- Constants ---
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 SAVE_FILE = "bonfires_echo_save.json"
-SOUND_ENABLED = False  # Placeholder for future audio integration
+SOUND_ENABLED = False 
 
 # --- Lore Introduction ---
 def print_lore() -> None:
@@ -21,7 +21,7 @@ def print_lore() -> None:
     ]
     for line in lore_lines:
         print(line)
-        time.sleep(1.5 if SOUND_ENABLED else 0.5)  # Simulate sound effect duration
+        time.sleep(1.5 if SOUND_ENABLED else 0.5)
     if SOUND_ENABLED:
         print("[Sound: Distant wind howls, embers crackle]")
 
@@ -58,7 +58,7 @@ def setup_player() -> Dict:
         'equipped_armor': None,
         'trinkets': [],
         'explored': {'ruined_atrium'},
-        'souls': 0,  # New currency for crafting/upgrades
+        'souls': 0,
         'stealth': False,
         'achievements': []
     }
@@ -295,7 +295,7 @@ rooms = {
     'ruined_atrium': {
         'description': 'A crumbled atrium, the empire’s broken gate. Moss chokes the stones, a bonfire sputters.',
         'exits': {'north': 'grand_hall', 'east': 'windy_tunnel', 'west': 'shattered_vestibule'},
-        'objects': ['rusted_sword', 'healing_potion'],
+        'objects': [], 
         'enemies': [],
         'traps': [],
         'bonfire': True,
@@ -363,14 +363,15 @@ rooms = {
         'chests': []
     },
     'dark_abyss': {
-        'description': 'A pit of black despair, alive with skittering dread.',
-        'exits': {'east': 'grand_hall', 'north': 'hidden_vault', 'south': 'relic_vault'},
-        'objects': ['golden_key', 'shadow_blade'],
-        'enemies': ['shadow_beast'],
-        'traps': ['false_floor'],
-        'bonfire': False,
-        'lore': 'The abyss devoured the empire’s sins.',
-        'chests': []
+    'description': 'A pit of black despair, alive with skittering dread.',
+    'exits': {'east': 'grand_hall', 'north': 'hidden_vault', 'south': 'relic_vault'},
+    'objects': ['golden_key', 'shadow_blade'],
+    'enemies': ['shadow_beast'],
+    'traps': ['false_floor'],
+    'bonfire': False,
+    'lore': 'The abyss devoured the empire’s sins.',
+    'chests': [],
+    'puzzle': {'riddle': 'The more of me you take, the more you leave behind. What am I?', 'answer': 'footsteps', 'reward': 'void_guard'}
     },
     'hidden_vault': {
         'description': 'A hollow vault, its treasure long plundered.',
@@ -393,14 +394,15 @@ rooms = {
         'chests': []
     },
     'oracle_chamber': {
-        'description': 'The Oracle looms, a statue of cryptic silence.',
-        'exits': {'south': 'library', 'west': 'tower_of_the_mage'},
-        'objects': ['rune_key', 'ruby_ring'],
-        'enemies': [],
-        'traps': [],
-        'bonfire': False,
-        'lore': 'The Oracle saw the end and said nothing.',
-        'chests': []
+    'description': 'The Oracle looms, a statue of cryptic silence.',
+    'exits': {'south': 'library', 'west': 'tower_of_the_mage'},
+    'objects': ['rune_key', 'ruby_ring'],
+    'enemies': [],
+    'traps': [],
+    'bonfire': False,
+    'lore': 'The Oracle saw the end and said nothing.',
+    'chests': [],
+    'puzzle': {'riddle': 'I speak without a mouth and hear without ears. What am I?', 'answer': 'echo', 'reward': 'shadow_blade'}
     },
     'throne_antechamber': {
         'description': 'A cracked marble hall, prelude to royal ruin.',
@@ -451,7 +453,8 @@ rooms = {
         'traps': ['poison_gas_trap'],
         'bonfire': False,
         'lore': 'The fallen guard their shame.',
-        'chests': ['shadow_chest']
+        'chests': ['shadow_chest'],
+        'puzzle': {'riddle': 'I am taken from a mine, shut in a wooden case, never released, yet used by all. What am I?', 'answer': 'graphite', 'reward': 'gleaming_sword'}
     },
     'tower_of_the_mage': {
         'description': 'A spire of cracked stone, buzzing with old magic.',
@@ -525,14 +528,15 @@ rooms = {
         'chests': []
     },
     'frozen_lair': {
-        'description': 'A lair of frost and fury, dragon’s breath frozen in time.',
-        'exits': {'south': 'ice_passage', 'east': 'lava_chamber', 'north': 'frosted_depths'},
-        'objects': ['dragon_tooth'],
-        'enemies': ['ice_wyrm'],
-        'traps': [],
-        'bonfire': False,
-        'lore': 'A wyrm’s tomb, icy and unyielding.',
-        'chests': ['dragon_hoard']
+    'description': 'A lair of frost and fury, dragon’s breath frozen in time.',
+    'exits': {'south': 'ice_passage', 'east': 'lava_chamber', 'north': 'frosted_depths'},
+    'objects': ['dragon_tooth'],
+    'enemies': ['ice_wyrm'],
+    'traps': [],
+    'bonfire': False,
+    'lore': 'A wyrm’s tomb, icy and unyielding.',
+    'chests': ['dragon_hoard'],
+    'puzzle': {'riddle': 'I can fly without wings, cry without eyes, and be caught but never held. What am I?', 'answer': 'snowflake', 'reward': 'frost_glaive'}
     },
     'lava_chamber': {
         'description': 'A hellscape of molten rivers, heat choking the air.',
@@ -545,14 +549,15 @@ rooms = {
         'chests': []
     },
     'arcane_sanctum': {
-        'description': 'A sanctum of humming runes, magic thick as blood.',
-        'exits': {'west': 'library', 'east': 'mana_well'},
-        'objects': ['rune_shroud', 'spell_scroll_soul_drain'],
-        'enemies': ['necromancer'],
-        'traps': ['magical_runes'],
-        'bonfire': False,
-        'lore': 'Spells were born in this crucible.',
-        'chests': []
+    'description': 'A sanctum of humming runes, magic thick as blood.',
+    'exits': {'west': 'library', 'east': 'mana_well'},
+    'objects': ['rune_shroud', 'spell_scroll_soul_drain'],
+    'enemies': ['necromancer'],
+    'traps': ['magical_runes'],
+    'bonfire': False,
+    'lore': 'Spells were born in this crucible.',
+    'chests': [],
+    'puzzle': {'riddle': 'I am always running but never move. What am I?', 'answer': 'shadow', 'reward': 'crystal_staff'}
     },
     'mana_well': {
         'description': 'A well of liquid mana, glowing with forbidden light.',
@@ -738,112 +743,6 @@ master_enemies = {
 active_effects: Dict[str, Dict] = {}
 
 # --- Helper Functions ---
-def enter_room(room: Dict, player: Dict) -> bool:
-    """Original room entry function for compatibility."""
-    if 'enemies' in room and room['enemies']:
-        for enemy_name in room['enemies']:
-            enemy = enemies[enemy_name].copy()
-            if not combat(player, enemy):
-                handle_death()
-                return False
-        room['enemies'] = []
-    if 'traps' in room and room['traps']:
-        if 'poison_gas_trap' in room['traps']:
-            print("Poison gas seeps from the cracks!")
-            player['health'] -= 10
-            print("You take 10 damage.")
-            room['traps'].remove('poison_gas_trap')
-        elif 'thorny_vines' in room['traps']:
-            print("Vines snag and tear at you!")
-            player['health'] -= 5
-            print("You take 5 damage.")
-        elif 'false_floor' in room['traps']:
-            print("The floor drops out beneath you!")
-            player['health'] -= 20
-            print("You take 20 damage.")
-            room['traps'].remove('false_floor')
-        elif 'magical_runes' in room['traps']:
-            print("Runes ignite, burning your flesh!")
-            player['health'] -= 15
-            print("You take 15 damage.")
-            room['traps'].remove('magical_runes')
-        if player['health'] <= 0:
-            handle_death()
-            return False
-    print(room['description'])
-    return True
-
-def combat(player: Dict, enemy: Dict) -> bool:
-    """Original combat function for compatibility."""
-    print(f"You face a {enemy['description']}")
-    while player['health'] > 0 and enemy['health'] > 0:
-        action = input("Attack, cast spell, use item, or flee? ").lower()
-        if action == 'attack':
-            damage = max(0, player['attack'] - enemy['defense'])
-            enemy['health'] -= damage
-            print(f"You deal {damage} damage to the {enemy['name']}.")
-        elif action == 'cast spell':
-            if player['spells']:
-                spell = input(f"Choose a spell ({', '.join(player['spells'])}): ").lower()
-                if spell in player['spells'] and player['mana'] >= spells[spell]['mana_cost']:
-                    player['mana'] -= spells[spell]['mana_cost']
-                    if 'damage' in spells[spell]:
-                        enemy['health'] -= spells[spell]['damage']
-                        print(f"You cast {spell}, dealing {spells[spell]['damage']} damage.")
-                    elif 'heal' in spells[spell]:
-                        player['health'] = min(player['max_health'], player['health'] + spells[spell]['heal'])
-                        print(f"You cast {spell}, healing {spells[spell]['heal']} HP.")
-                else:
-                    print("Invalid spell or not enough mana.")
-            else:
-                print("You know no spells.")
-        elif action == 'use item':
-            if player['inventory']:
-                item = input(f"Choose an item ({', '.join(player['inventory'])}): ").lower()
-                if item == 'healing_potion' and item in player['inventory']:
-                    player['health'] = min(player['max_health'], player['health'] + 30)
-                    player['inventory'].remove('healing_potion')
-                    print("You drink a healing potion, restoring 30 HP.")
-                else:
-                    print("That item can’t be used here.")
-            else:
-                print("Your inventory is barren.")
-        elif action == 'flee':
-            if random.random() < 0.3:
-                print("You flee the fray!")
-                return True
-            print("You can’t break free!")
-        if enemy['health'] > 0:
-            damage = max(0, enemy['attack'] - player['defense'])
-            player['health'] -= damage
-            print(f"The {enemy['name']} strikes for {damage} damage.")
-    if player['health'] <= 0:
-        print(f"The {enemy['name']} has broken you.")
-        return False
-    print(f"You vanquish the {enemy['name']}!")
-    return True
-
-def handle_death() -> None:
-    """Original death handler for compatibility."""
-    global current_room
-    print("Death takes you. The bonfire’s glow calls you back...")
-    current_room = last_bonfire
-    player['health'] = player['max_health']
-    player['mana'] = player['max_mana']
-    for room_name, enemy_list in master_enemies.items():
-        rooms[room_name]['enemies'] = enemy_list.copy()
-
-def sarcophagus_puzzle() -> bool:
-    """Original sarcophagus puzzle for compatibility."""
-    print("Riddle: 'I am taken from a mine, shut in a wooden case, never released, yet used by all. What am I?'")
-    answer = input("Answer: ").lower()
-    if answer in ['graphite', 'pencil lead']:
-        print("The sarcophagus grinds open, revealing a gleaming sword!")
-        rooms['crypt_of_the_fallen']['objects'].append('gleaming_sword')
-        return True
-    print("The riddle stands firm.")
-    return False
-
 def enhanced_enter_room(room: Dict, player: Dict) -> bool:
     """Enhanced room entry with new mechanics."""
     player['explored'].add(current_room)
@@ -954,7 +853,7 @@ def enhanced_combat(player: Dict, enemy: Dict, enemy_key: str) -> bool:
                 player['health'] -= 10
                 print("The Warden’s blade hums, sapping 10 more HP!")
         
-        update_effects(player)
+        update_effects(player, enemy)
     
     if player['health'] <= 0:
         print(f"\nThe {enemy['name']} claims your soul.")
@@ -1053,18 +952,22 @@ def apply_enemy_special(enemy: Dict, player: Dict) -> None:
         player['mana'] -= 10
         print(f"The {enemy['name']} drains your mana by 10!")
 
-def update_effects(player: Dict) -> None:
+def update_effects(player: Dict, enemy: Dict) -> None:
     """Update and expire active effects."""
     for effect in list(active_effects.keys()):
         active_effects[effect]['turns'] -= 1
         if 'damage' in active_effects[effect] and active_effects[effect]['target'] == 'enemy':
-            'enemy'['health'] -= active_effects[effect]['damage']
-            print(f"{effect.capitalize()} deals {active_effects[effect]['damage']} damage!")
+            enemy['health'] -= active_effects[effect]['damage']
+            print(f"{effect.capitalize()} deals {active_effects[effect]['damage']} damage to the enemy!")
         if active_effects[effect]['turns'] <= 0:
             if effect == 'stealth':
                 player['stealth'] = False
+                print("Your stealth fades.")
+            elif effect == 'bleed':
+                print(f"The {enemy['name']}'s bleeding stops.")
+            else:
+                print(f"Your {effect} fades.")
             del active_effects[effect]
-            print(f"Your {effect} fades.")
 
 def handle_death_enhanced(player: Dict) -> None:
     """Enhanced death handler with soul loss."""
@@ -1107,7 +1010,7 @@ def solve_puzzle(room: Dict, player: Dict) -> None:
         puzzle = room['puzzle']
         print(f"\nA riddle bars your way: '{puzzle['riddle']}'")
         answer = input("Answer: ").lower().strip()
-        if answer == puzzle['answer']:
+        if answer == puzzle['answer'] or (puzzle['riddle'] == 'I am taken from a mine, shut in a wooden case, never released, yet used by all. What am I?' and answer == 'pencil lead'):
             item = puzzle['reward']
             room['objects'].append(item)
             print(f"Stone yields—revealed: {item}!")
@@ -1116,7 +1019,7 @@ def solve_puzzle(room: Dict, player: Dict) -> None:
             print("The riddle mocks your folly.")
 
 def open_chest(chest_name: str, player: Dict) -> None:
-    """Open a chest with enhanced mechanics."""
+    """Open a chest with enhanced mechanics, removing contents to prevent duplication."""
     chest = chests[chest_name]
     print(f"\n{chest['desc']}")
     if chest['locked']:
@@ -1131,36 +1034,12 @@ def open_chest(chest_name: str, player: Dict) -> None:
             return
     else:
         print(f"You wrench open the {chest_name}, hinges screaming.")
+    
+    # Transfer and clear chest contents
     for item in chest['contents']:
         player['inventory'].append(item)
         print(f"You claim: {item.capitalize()}")
-
-def save_game(player: Dict) -> None:
-    """Save the game state to a file."""
-    game_state = {
-        'player': player,
-        'current_room': current_room,
-        'last_bonfire': last_bonfire,
-        'rooms': {k: {'enemies': v['enemies'], 'objects': v['objects'], 'chests': v['chests']} for k, v in rooms.items()},
-        'active_effects': active_effects
-    }
-    with open(SAVE_FILE, 'w') as f:
-        json.dump(game_state, f)
-    print("Your journey is etched into the annals.")
-
-def load_game() -> Tuple[Optional[Dict], str, str, Dict]:
-    """Load the game state from a file."""
-    if not os.path.exists(SAVE_FILE):
-        print("No tale to reclaim from the void.")
-        return None, 'ruined_atrium', 'ruined_atrium', {}
-    with open(SAVE_FILE, 'r') as f:
-        game_state = json.load(f)
-    for room, data in game_state['rooms'].items():
-        rooms[room]['enemies'] = data['enemies']
-        rooms[room]['objects'] = data['objects']
-        rooms[room]['chests'] = data['chests']
-    print("You rise from the ashes of a past life.")
-    return game_state['player'], game_state['current_room'], game_state['last_bonfire'], game_state['active_effects']
+    chest['contents'] = []  
 
 def craft_item(player: Dict, item: str) -> None:
     """Craft items at a crafting station."""
@@ -1181,6 +1060,40 @@ def craft_item(player: Dict, item: str) -> None:
     player['souls'] -= recipe['souls']
     player['inventory'].append(item)
     print(f"You craft a {item}! {recipe['desc']}")
+
+def save_game(player: Dict) -> None:
+    """Save the game state to a file, converting sets to lists."""
+    player_copy = player.copy()
+    player_copy['explored'] = list(player['explored'])
+    game_state = {
+        'player': player_copy,
+        'current_room': current_room,
+        'last_bonfire': last_bonfire,
+        'rooms': {k: {'enemies': v['enemies'], 'objects': v['objects'], 'chests': v['chests']} for k, v in rooms.items()},
+        'active_effects': active_effects
+    }
+    with open(SAVE_FILE, 'w') as f:
+        json.dump(game_state, f)
+    print("Your journey is etched into the annals.")
+
+def load_game() -> Tuple[Optional[Dict], str, str, Dict]:
+    """Load the game state from a file, converting lists back to sets."""
+    if not os.path.exists(SAVE_FILE):
+        print("No tale to reclaim from the void.")
+        return None, 'ruined_atrium', 'ruined_atrium', {}
+    try:
+        with open(SAVE_FILE, 'r') as f:
+            game_state = json.load(f)
+        game_state['player']['explored'] = set(game_state['player']['explored'])
+        for room, data in game_state['rooms'].items():
+            rooms[room]['enemies'] = data['enemies']
+            rooms[room]['objects'] = data['objects']
+            rooms[room]['chests'] = data['chests']
+        print("You rise from the ashes of a past life.")
+        return game_state['player'], game_state['current_room'], game_state['last_bonfire'], game_state['active_effects']
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"Failed to load save file: {e}. Starting anew.")
+        return None, 'ruined_atrium', 'ruined_atrium', {}
 
 # --- Game Setup ---
 print(f"Bonfire's Echo v{VERSION}")
@@ -1237,6 +1150,7 @@ while True:
             if item in weapons:
                 player['equipped_weapon'] = item
                 player['attack'] = weapons[item]['attack']
+                player['inventory'].remove(item)
                 print(f"You wield the {item}. {weapons[item]['desc']}")
             elif item in armor:
                 if player['equipped_armor']:
@@ -1248,6 +1162,7 @@ while True:
                 if 'mana_bonus' in armor[item]:
                     player['max_mana'] += armor[item]['mana_bonus']
                     player['mana'] = min(player['mana'], player['max_mana'])
+                player['inventory'].remove(item)
                 print(f"You don the {item}. {armor[item]['desc']}")
             elif item in trinkets:
                 player['trinkets'].append(item)
@@ -1276,8 +1191,6 @@ while True:
                 print("That scroll’s secrets elude you.")
         else:
             print("No such scroll in your grasp.")
-    elif verb == 'solve':
-        sarcophagus_puzzle()
     elif verb == 'rest' and room.get('bonfire', False):
         player['health'] = player['max_health']
         player['mana'] = player['max_mana']
@@ -1299,8 +1212,18 @@ while True:
         craft_item(player, item)
     elif verb == 'save':
         save_game(player)
+    elif verb == 'search':
+        print("\nYou scour the shadows...")
+        if room['objects']:
+            print(f"Items: {', '.join([item.capitalize() for item in room['objects']])}")
+        else:
+            print("No loose items catch your eye.")
+        if 'chests' in room and room['chests']:
+            print(f"Chests: {', '.join([chest.capitalize() for chest in room['chests']])}")
+        else:
+            print("No chests loom in sight.")
     elif verb == 'help':
-        print("Commands: go [direction], take [item], equip [item], learn [spell_scroll], solve, rest, stats, map, open [chest], craft [item], save, help, quit")
+        print("Commands: go [direction], take [item], equip [item], learn [spell_scroll], rest, stats, map, open [chest], craft [item], save, search, help, quit")
     elif verb == 'quit':
         print(f"{player['name']} turns from the dark. The empire waits.")
         save_game(player)
